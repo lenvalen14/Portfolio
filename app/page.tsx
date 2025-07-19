@@ -1,28 +1,29 @@
 'use client';
 
-import Navbar from '@/components/sections/Navbar'
 import Hero from '@/components/sections/Hero'
+import Navbar from '@/components/sections/Navbar'
 import About from '@/components/sections/About'
 import Skills from '@/components/sections/Skills'
+import Certificates from '@/components/sections/Certificates'
 import Experience from '@/components/sections/Experience'
 import Projects from '@/components/sections/Projects'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
-import Certificates from '@/components/sections/Certificates'
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <main>
+    <>
       <Navbar />
       <Hero />
       <About />
       <Skills />
+      <Certificates />
       <Experience />
       <Projects />
-      <Certificates />
       <Contact />
       <Footer />
-    </main>
+    </>
   )
 }
+
 
