@@ -25,7 +25,7 @@ export default function Navbar() {
   }, [menuOpen])
 
   return (
-    <header className="w-full px-6 py-4 flex justify-between items-center sticky top-0 bg-white/80 backdrop-blur-md shadow-sm transition-all">
+      <header className="w-full px-6 py-4 flex justify-between items-center sticky top-0 bg-white/80 backdrop-blur-md shadow-sm transition-all z-50">
       {/* Logo */}
       <Link href="/" className="text-2xl font-extrabold">
         <span className="text-chart-3">P</span>
