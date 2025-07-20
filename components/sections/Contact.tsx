@@ -13,33 +13,43 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+
+    console.log({ serviceId, templateId, publicKey }) // DEBUG
+
     if (!formRef.current) return
     setStatus(null)
-    emailjs.sendForm(
-      'YOUR_SERVICE_ID', // Thay bằng serviceId của bạn
-      'YOUR_TEMPLATE_ID', // Thay bằng templateId của bạn
-      formRef.current,
-      'YOUR_PUBLIC_KEY' // Thay bằng publicKey của bạn
-    )
+
+    emailjs.sendForm(serviceId, templateId, formRef.current, publicKey)
       .then(() => {
-        setStatus('Message sent successfully!')
+        setStatus('success: Message sent successfully!')
         formRef.current?.reset()
       })
-      .catch(() => setStatus('Failed to send message. Please try again.'))
+      .catch((error) => {
+        console.error('EmailJS error:', error)
+        setStatus('error: Failed to send message. Please try again.')
+      })
   }
 
   return (
     <section id="contact" className="px-6 py-20 bg-white text-black">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-          <Input type="text" name="user_name" placeholder="Your name" required />
-          <Input type="email" name="user_email" placeholder="Email" required />
+          <Input type="text" name="name" placeholder="Your name" required />
+          <Input type="email" name="email" placeholder="Email" required />
           <Input type="text" name="user_website" placeholder="Your website (If exists)" />
           <Textarea name="message" placeholder="How can I help?*" rows={5} required />
 
           <Button type="submit" className="w-fit">Get In Touch</Button>
 
-          {status && <div className={`text-sm ${status.includes('success') ? 'text-green-600' : 'text-red-600'}`}>{status}</div>}
+          {status && (
+            <div className={`text-sm ${status.includes('success') ? 'text-green-600' : 'text-red-600'}`}>
+              {status}
+            </div>
+          )}
 
           <div className="flex gap-3 pt-4">
             <a href="#"><FaFacebookF className="w-5 h-5" /></a>
